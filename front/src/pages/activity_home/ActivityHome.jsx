@@ -3,7 +3,7 @@ import styles from './ActivityHome.module.scss'
 import Header from '../../components/header/Header'
 import { BarChart } from '@mui/x-charts'
 import { Button } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 
 
@@ -38,6 +38,8 @@ const ActivityHome = () => {
     });
 
   }, [])
+  
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -51,7 +53,7 @@ const ActivityHome = () => {
           <div className={styles.nav}>
             <div>#홈</div>
             <div>#공지사항</div>
-            <div>#활동내역</div>
+            <Link to = {"/activity/classpage"}className = "no-underline">#활동내역</Link>
           </div>
         </div>
         <div className={styles.container_content}>

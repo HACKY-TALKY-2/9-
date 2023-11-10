@@ -1,0 +1,25 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "name": "독서",
+            "type": "challenge"
+        },
+        {
+            "id": 2,
+            "name": "운동",
+            "type": "challenge"
+        },
+        {
+            "id": 3,
+            "name": "공부",
+            "type": "challenge"
+        },
+        {
+            "id": 4,
+            "name": "취미",
+            "type": "hobby"
+        }
+    ]
+}
