@@ -18,7 +18,7 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/activity/home/' element={<ActivityHome/>}/>
+          <Route path='/activity/home/:id' element={<ActivityHome/>}/>
           <Route path='/activity/create/' element={<CreateActivity />} />
           <Route path='/activity/gather/' element={<GatherActivity />} />
           <Route path='/activity/membercheck' element={<MemberCheck />} />

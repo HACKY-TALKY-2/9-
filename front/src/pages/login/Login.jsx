@@ -82,7 +82,7 @@ function Login() {
       if (res.data.success){
         //login.login(res.data.id);
         localStorage.setItem('id', res.data.data.id);
-                  navigate('/');
+        navigate('/');
       }
       else{
         alert(res.data.message);
