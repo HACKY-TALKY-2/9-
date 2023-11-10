@@ -442,7 +442,7 @@ exports.getTotalAtthend = async (req, res) => {
       result.push({
         activity_id: rows[i].id,
         appointment_time: rows[i].appointment_time,
-        user: rows2,
+        attended_users: rows2,
       });
     }
 
