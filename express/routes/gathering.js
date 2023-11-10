@@ -29,4 +29,6 @@ router.post("/postofactivity", gathering.postPostOfActivity);
 
 router.get("/postofactivity/:activity_id", gathering.getPostOfActivity);
 
+router.get("/activity/:activity_id", gathering.getActivity);
+
 module.exports = router;

@@ -368,3 +368,28 @@ exports.postPostOfActivity = async (req, res) => {
     });
   }
 };
+
+exports.getActivity = async (req, res) => {
+  const { activity_id } = req.params;
+  try {
+    const [rows] = await pool.query(
+      `SELECT * FROM gathering_activity where id = ?`,
+      [activity_id]
+    );
+    if (rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "활동이 아무것도 존재하지 않습니다!",
+      });
+    } else {
+      return res.status(200).json({ success: true, data: rows });
+    }
+  } catch (error) {
+    console.log("error: getActivity");
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "서버 에러",
+    });
+  }
+};
