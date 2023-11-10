@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 //import axios from "axios";
 
 const Wrapper = styled.div`
@@ -61,6 +62,7 @@ function Login() {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const navigate = useNavigate();
+  const login = useLogin();
 
   const onLoginButtonClick = () => {
     if (idtext === '' || passwordtext === ''){
@@ -78,8 +80,9 @@ function Login() {
     }
 
     setIsSubmit(true);
-    axios.post('/user/signup', body).then((res) => {
+    axios.post('/user/login', body).then((res) => {
       if (res.data.success){
+        //login.login(res.data.id);
         localStorage.setItem('id', res.data.id);
           navigate('/');
       }
@@ -88,7 +91,13 @@ function Login() {
         setIsSubmit(false);
       }
     }).catch((err) => {
-      alert("오류가 발생했습니다.");
+      console.log(err);
+      if (err.response.status == 500){
+        alert("오류가 발생했습니다.");
+      }
+      else{
+        alert(err.response.data.message);
+      }
       setIsSubmit(false);
     })
   }

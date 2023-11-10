@@ -55,7 +55,12 @@ function Signup() {
         setIsSubmit(false);
       }
     }).catch((err) => {
+      if (err.response.status == 500){
       alert('요류가 발생하였습니다.');
+      }
+      else{
+        alert(err.response.data.message);
+      }
       setIsSubmit(false);
     });
 
