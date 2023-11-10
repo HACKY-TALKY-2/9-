@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useLogin from "../../hooks/useLogin";
 //import axios from "axios";
 
 const Wrapper = styled.div`
@@ -62,7 +61,6 @@ function Login() {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const navigate = useNavigate();
-  const login = useLogin();
 
   const onLoginButtonClick = () => {
     if (idtext === '' || passwordtext === ''){
