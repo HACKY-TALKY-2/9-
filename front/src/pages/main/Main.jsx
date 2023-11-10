@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Main.module.scss';
 import Header from '../../components/header/Header';
+import Card from '../../components/card/Card';
 
 const Main = () => {
   return (
@@ -12,7 +13,12 @@ const Main = () => {
             <img src='/images/main.jpg'/>
           </div>
           <div className={styles.content}>
-            
+            <Card/>
+            <Card/>
+            <Card/>
+            <Card/>
+            <Card/>
+            <Card/>
           </div>
         </div>
       </div>
