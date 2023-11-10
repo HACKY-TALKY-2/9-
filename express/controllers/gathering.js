@@ -169,12 +169,11 @@ exports.getBestUser = async (req, res) => {
   const { gathering_id } = req.params;
   try {
     const [rows] = await pool.query(
-      `SELECT user_id, COUNT(activity_attend.id) AS participation_count
+      `SELECT user_id, COUNT(id) AS attendance_count
       FROM activity_attend
-      JOIN gathering_activity ON activity_attend.gathering_id = gathering_activity.gathering_id
-      WHERE activity_attend.gathering_id = 1
+      WHERE gathering_id = ?
       GROUP BY user_id
-      ORDER BY participation_count DESC
+      ORDER BY attendance_count DESC
       LIMIT 3;
       `,
       [gathering_id]
@@ -202,15 +201,21 @@ exports.getRecentTotalAttend = async (req, res) => {
   const { gathering_id } = req.params;
   try {
     const [rows] = await pool.query(
-      `SELECT gathering_activity.id AS activity_id, 
-      gathering_activity.created_at AS activity_date,
-      COUNT(activity_attend.user_id) AS user_count
-      FROM gathering_activity
-      LEFT JOIN activity_attend ON gathering_activity.id = activity_attend.gathering_id
-      WHERE gathering_activity.gathering_id = ?
-      GROUP BY gathering_activity.id, gathering_activity.created_at
-      ORDER BY gathering_activity.created_at DESC
-      LIMIT 7;
+      `SELECT 
+      ga.id AS activity_id,
+      ga.created_at AS activity_date,
+      COUNT(aa.user_id) AS user_count
+  FROM 
+      gathering_activity ga
+  LEFT JOIN 
+      activity_attend aa ON ga.id = aa.activity_id
+  WHERE 
+      ga.gathering_id = ?
+  GROUP BY 
+      ga.id, ga.created_at
+  ORDER BY 
+      ga.created_at DESC
+  LIMIT 7;;
       `,
       [gathering_id]
     );
@@ -346,8 +351,8 @@ exports.postPostOfActivity = async (req, res) => {
       [user_id, activity_id, content, image]
     );
     const result2 = await pool.query(
-      `INSERT INTO activity_attend (gathering_id, user_id) VALUES (?, ?)`,
-      [gathering_id, user_id]
+      `INSERT INTO activity_attend (gathering_id, user_id, activity_id) VALUES (?, ?, ?)`,
+      [gathering_id, user_id, activity_id]
     );
     if (result[0].affectedRows === 1) {
       return res
@@ -386,6 +391,71 @@ exports.getActivity = async (req, res) => {
     }
   } catch (error) {
     console.log("error: getActivity");
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "서버 에러",
+    });
+  }
+};
+
+exports.getMember = async (req, res) => {
+  const { gathering_id } = req.params;
+  try {
+    const [rows] = await pool.query(
+      `SELECT * FROM member inner join user on member.user_id = user.id where gathering_id = ?`,
+
+      [gathering_id]
+    );
+    if (rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "참석자가 아무것도 존재하지 않습니다!",
+      });
+    } else {
+      return res.status(200).json({ success: true, data: rows });
+    }
+  } catch (error) {
+    console.log("error: getMember");
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "서버 에러",
+    });
+  }
+};
+
+exports.getTotalAtthend = async (req, res) => {
+  const { gathering_id } = req.params;
+
+  try {
+    const [rows] = await pool.query(
+      `SELECT id, appointment_time FROM gathering_activity where gathering_id = ?`,
+      [gathering_id]
+    );
+    let result = [];
+    for (let i = 0; i < rows.length; i++) {
+      const [rows2] = await pool.query(
+        `select user.* from activity_attend inner join user on activity_attend.user_id = user.id where activity_id = ?`,
+        [rows[i].id]
+      );
+      result.push({
+        activity_id: rows[i].id,
+        appointment_time: rows[i].appointment_time,
+        user: rows2,
+      });
+    }
+
+    if (rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "참석자가 아무것도 존재하지 않습니다!",
+      });
+    } else {
+      return res.status(200).json({ success: true, data: result });
+    }
+  } catch (error) {
+    console.log("error: getTotalAtthend");
     console.error(error);
     return res.status(500).json({
       success: false,

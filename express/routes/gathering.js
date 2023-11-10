@@ -19,6 +19,8 @@ router.post("/joingathering", gathering.joinGathering);
 
 //router.get("/totalattend", gathering.getTotalAtthend);
 
+router.get("/totalattend/:gathering_id", gathering.getTotalAtthend);
+
 router.get("/best_user/:gathering_id", gathering.getBestUser);
 
 router.get("/recentattendcount/:gathering_id", gathering.getRecentTotalAttend);
@@ -30,5 +32,7 @@ router.post("/postofactivity", gathering.postPostOfActivity);
 router.get("/postofactivity/:activity_id", gathering.getPostOfActivity);
 
 router.get("/activity/:activity_id", gathering.getActivity);
+
+router.get("/member/:gathering_id", gathering.getMember);
 
 module.exports = router;
