@@ -8,8 +8,8 @@ const Header = () => {
         <div className={styles.container}>
           <Link to={'/'} className={styles.link}>역삼모역</Link>
             <div className={styles.nav}>
-                <p>로그인</p>
-                <p>회원가입</p>
+                <Link to={'/login'} className={styles.link_button}>로그인</Link>
+                <Link to={'/signup'} className={styles.link_button}>회원가입</Link>
             </div>
         </div>
     </div>
