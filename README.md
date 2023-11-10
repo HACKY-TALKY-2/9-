@@ -32,4 +32,5 @@
 - Tailwind
 ## Backend
 - Node
-- Express, Mysql
+- Express
+- Mysql
