@@ -75,10 +75,13 @@ CREATE TABLE `activity_attend` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `gathering_id` INT NOT NULL,
     `user_id` INT NOT NULL,
+    `activity_id` INT NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`gathering_id`) REFERENCES `gathering` (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    FOREIGN KEY (`activity_id`) REFERENCES `gathering_activity` (`id`)
 );
+
 
 CREATE TABLE `gathering_content` (
     `id` INT NOT NULL AUTO_INCREMENT,
