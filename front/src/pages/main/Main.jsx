@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
 
+
   const navigate = useNavigate();
 
   return (
@@ -18,7 +19,12 @@ const Main = () => {
           </div>
         <div className={styles.container}>
           <div className={styles.button}>
-          <Button text='생성하기+' onClick={()=>{navigate("/activity/create")}}/>
+          <Button text='생성하기+' onClick={()=>{
+            if (localStorage.getItem('id') == ''){
+              alert("로그인이 필요합니다.");
+              return;
+            }
+            navigate("/activity/create")}}/>
           </div>
           <div className={styles.card_container}>
             <div className={styles.card_container_header}>

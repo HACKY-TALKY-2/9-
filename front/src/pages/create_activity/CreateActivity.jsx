@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/header/Header'
 import styles from './CreateActivity.module.scss'
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import axios from 'axios'
+import { useNavigate } from 'react-router'
 
 const CreateActivity = () => {
 
@@ -11,6 +13,47 @@ const CreateActivity = () => {
   const [cate, setCate] = useState('');
   const [count, setCount] = useState('');
 
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onSubmit = () => {
+    if (isSubmit) {
+      return;
+    }
+
+    if (title == '' || detail == '' || dis == '' || cate == '' || count == '') {
+      alert("정보를 모두 입력해주세요");
+      return;
+    }
+
+    const body = {
+      user_id : localStorage.getItem('id'),
+      title: title,
+      type: dis == '1' ? 'hobby' : 'challenge',
+      category_id: cate,
+      image: "",
+      num_of_people: count,
+      introduction: detail
+    }
+
+    axios.post('/gathering/create', body, { headers: { auth: localStorage.getItem('id') } })
+      .then((res) => {
+
+        if (res.data.success) {
+          alert('모임 생성에 성공하였습니다!');
+          navigate('/');
+        }
+        else {
+          alert('모임 생성에 실패하였습니다!');
+          setIsSubmit(false);
+        }
+      }).catch((err) => {
+        alert("오류가 발생하였습니다.");
+        setIsSubmit(false);
+      })
+  }
+  
   return (
     <div>
       <Header />
@@ -53,8 +96,8 @@ const CreateActivity = () => {
                 }}
                 fullWidth
               >
-                <MenuItem value={10}>소모임</MenuItem>
-                <MenuItem value={20}>챌린지</MenuItem>
+                <MenuItem value={1}>소모임</MenuItem>
+                <MenuItem value={2}>챌린지</MenuItem>
               </Select>
             </div>
             <div className={styles.container_row}>
@@ -99,7 +142,7 @@ const CreateActivity = () => {
                 <MenuItem value={10}>10명</MenuItem>
               </Select>
             </div>
-            <Button variant="contained" size='large' fullWidth style={{marginTop:"30px"}}>생성하기</Button>
+            <Button variant="contained" size='large' fullWidth style={{ marginTop: "30px" }} onClick={()=>{onSubmit();}}>생성하기</Button>
           </div>
 
         </div>

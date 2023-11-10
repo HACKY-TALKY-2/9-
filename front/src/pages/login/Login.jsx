@@ -81,8 +81,8 @@ function Login() {
     axios.post('/user/login', body).then((res) => {
       if (res.data.success){
         //login.login(res.data.id);
-        localStorage.setItem('id', res.data.id);
-          navigate('/');
+        localStorage.setItem('id', res.data.data.id);
+                  navigate('/');
       }
       else{
         alert(res.data.message);
