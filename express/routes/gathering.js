@@ -15,14 +15,18 @@ router.get("/category", gathering.getCategory);
 
 router.get("/notice/:gathering_id", gathering.getGatheringNotice);
 
-router.get("/totalattend", gathering.getTotalAtthend);
+router.post("/joingathering", gathering.joinGathering);
 
-//router.post("/post", gathering.postGatheringPost);
+//router.get("/totalattend", gathering.getTotalAtthend);
 
-//router.get("/best_user/:gathering_id", gathering.getBestUser);
+router.get("/best_user/:gathering_id", gathering.getBestUser);
 
-//router.get("/recentattendcount/:gathering_id", gathering.getRecentTotalAttend);
+router.get("/recentattendcount/:gathering_id", gathering.getRecentTotalAttend);
 
-//router.post("/postofactivity", gathering.getPostOfActivity);
+router.post("/activity", gathering.createActivity);
+
+router.post("/postofactivity", gathering.postPostOfActivity);
+
+router.get("/postofactivity/:activity_id", gathering.getPostOfActivity);
 
 module.exports = router;
