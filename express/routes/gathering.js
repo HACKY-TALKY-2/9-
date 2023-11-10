@@ -15,7 +15,7 @@ router.get("/category", gathering.getCategory);
 
 router.get("/notice/:gathering_id", gathering.getGatheringNotice);
 
-//router.get("/totalattend", gathering.getAtthend);
+router.get("/totalattend", gathering.getTotalAtthend);
 
 //router.post("/post", gathering.postGatheringPost);
 

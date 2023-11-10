@@ -147,3 +147,24 @@ exports.getGatheringNotice = async (req, res) => {
     });
   }
 };
+
+exports.getTotalAtthend = async (req, res) => {
+  try {
+    const [rows] = await pool.query(`SELECT * FROM gathering_attend`);
+    if (rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "참석자가 아무것도 존재하지 않습니다!",
+      });
+    } else {
+      return res.status(200).json({ success: true, data: rows });
+    }
+  } catch (error) {
+    console.log("error: getTotalAtthend");
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "서버 에러",
+    });
+  }
+};
