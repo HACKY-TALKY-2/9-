@@ -10,6 +10,8 @@ import {
   Chip,
 } from "@mui/material";
 import Header from "../../components/header/Header";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -18,6 +20,9 @@ function Signup() {
     email: "",
     password: "",
   });
+
+  const [isSubmit, setIsSubmit] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +34,36 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const body = {
+      name : formData.firstName + formData.lastName,
+      email : formData.email,
+      password : formData.password
+    }
+
+    if (isSubmit){
+      return;
+    }
+
+    setIsSubmit(true);
+    axios.post('/user/signup', body).then((res) => {
+      if (res.data.success){
+        alert('회원가입이 완료되었습니다!');
+        navigate('/login');
+      }
+      else{
+        setIsSubmit(false);
+      }
+    }).catch((err) => {
+      if (err.response.status == 500){
+      alert('요류가 발생하였습니다.');
+      }
+      else{
+        alert(err.response.data.message);
+      }
+      setIsSubmit(false);
+    });
+
     // 여기에서 회원가입 로직을 처리할 수 있습니다.
   };
   const [selectedChips, setSelectedChips] = React.useState([]);

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/header/Header";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 //import axios from "axios";
 
 const Wrapper = styled.div`
@@ -56,6 +59,48 @@ const PasswordArea = styled.textarea`
 function Login() {
   const [idtext, setIdText] = useState("");
   const [passwordtext, setPasswordText] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const navigate = useNavigate();
+  const login = useLogin();
+
+  const onLoginButtonClick = () => {
+    if (idtext === '' || passwordtext === ''){
+      alert('내용을 정확하게 입력해주세요.');
+      return;
+    }
+
+    const body = {
+      email : idtext,
+      password : passwordtext
+    }
+
+    if (isSubmit){
+      return;
+    }
+
+    setIsSubmit(true);
+    axios.post('/user/login', body).then((res) => {
+      if (res.data.success){
+        //login.login(res.data.id);
+        localStorage.setItem('id', res.data.id);
+          navigate('/');
+      }
+      else{
+        alert(res.data.message);
+        setIsSubmit(false);
+      }
+    }).catch((err) => {
+      console.log(err);
+      if (err.response.status == 500){
+        alert("오류가 발생했습니다.");
+      }
+      else{
+        alert(err.response.data.message);
+      }
+      setIsSubmit(false);
+    })
+  }
 
   return (
     <div>
@@ -72,8 +117,8 @@ function Login() {
         placeholder="패스워드를 입력하세요:"
       ></PasswordArea>
       <ButtonContainer>
-        <LogInButton>LogIn</LogInButton>
-        <SignUpButton>SignUp</SignUpButton>
+        <LogInButton onClick={onLoginButtonClick}>LogIn</LogInButton>
+        {/* <SignUpButton>SignUp</SignUpButton> */}
       </ButtonContainer>
     </Wrapper>
     </div>
