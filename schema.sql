@@ -55,6 +55,7 @@ CREATE TABLE `gathering_notice` (
 CREATE TABLE `member` (
     `user_id` INT NOT NULL,
     `gathering_id` INT NOT NULL,
+    `is_leader` TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`user_id`, `gathering_id`),
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
     FOREIGN KEY (`gathering_id`) REFERENCES `gathering` (`id`)
