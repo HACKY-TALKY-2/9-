@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
 
     if (rows.length === 0) {
       return res
-        .status(400)
+        .status(401)
         .json({ success: false, message: "유저 정보를 찾을 수 없습니다!" });
     } else {
       return res.status(200).json({ success: true, data: rows[0] });
@@ -50,7 +50,7 @@ exports.signup = async (req, res) => {
     }
     else{
       return res
-      .status(400)
+      .status(401)
       .json({ success: false, message: "이미 사용중인 이메일입니다." });
     }
   } catch (error) {
