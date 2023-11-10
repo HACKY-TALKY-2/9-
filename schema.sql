@@ -9,13 +9,14 @@ SET GLOBAL event_scheduler = ON;
 CREATE TABLE `category` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NULL,
+    `type` ENUM('challenge', 'hobby'),
     PRIMARY KEY (`id`)
 );
 
-INSERT INTO category values (1, "독서");
-INSERT INTO category values (2, "운동");
-INSERT INTO category values (3, "공부");
-INSERT INTO category values (4, "취미");
+INSERT INTO category values (1, "독서", "challenge");
+INSERT INTO category values (2, "운동", "challenge");
+INSERT INTO category values (3, "공부", "challenge");
+INSERT INTO category values (4, "취미", "hobby");
 
 CREATE TABLE `gathering` (
     `id` INT NOT NULL AUTO_INCREMENT,
