@@ -311,3 +311,60 @@ exports.createActivity = async (req, res) => {
 //     });
 //   }
 // };
+
+exports.getPostOfActivity = async (req, res) => {
+  const { activity_id } = req.params;
+  try {
+    const [rows] = await pool.query(
+      `SELECT * FROM gathering_content where activity_id = ?`,
+      [activity_id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "활동 게시글이 아무것도 존재하지 않습니다!",
+      });
+    } else {
+      return res.status(200).json({ success: true, data: rows });
+    }
+  } catch (error) {
+    console.log("error: getPostOfActivity");
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "서버 에러",
+    });
+  }
+};
+
+exports.postPostOfActivity = async (req, res) => {
+  const { user_id, activity_id, gathering_id, content, image } = req.body;
+  try {
+    const result = await pool.query(
+      `INSERT INTO gathering_content (user_id, activity_id, content, image) VALUES (?, ?, ?, ?)`,
+      [user_id, activity_id, content, image]
+    );
+    const result2 = await pool.query(
+      `INSERT INTO activity_attend (gathering_id, user_id) VALUES (?, ?)`,
+      [gathering_id, user_id]
+    );
+    if (result[0].affectedRows === 1) {
+      return res
+        .status(200)
+        .json({ success: true, message: "활동 게시글 생성에 성공하였습니다!" });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "활동 게시글 생성에 실패하였습니다!",
+      });
+    }
+  } catch (error) {
+    console.log("error: postPostOfActivity");
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "서버 에러",
+    });
+  }
+};
