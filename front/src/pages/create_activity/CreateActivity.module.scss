@@ -1,0 +1,35 @@
+.wrapper{
+  width: 100%;
+  background-color: #EBF8FF;
+
+  .container {
+    width: 1080px;
+    height: 1000px;
+    margin: auto;
+
+    background-color: yellow;
+
+    .header {
+      width: 1080px;
+      height: 100px;
+
+      padding-bottom: 10px;
+      border-bottom: 1px solid black;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      .title{
+        font-size: 30px;
+        font-weight: 900;
+      }
+
+      .detail {
+        font-size: 20px;
+      }
+    }
+  }
+
+}

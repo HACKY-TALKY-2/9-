@@ -1,15 +1,10 @@
 .wrapper {
     width: 100%;
-}
+    background-color:#EBF8FF;
 
-.container {
-    width: 1080px;
-    height: 1280px;
-    margin: auto;
-    
     .image_container {
         width: 100%;
-        height: 500px;
+        height: 350px;
         overflow: hidden;
         background-color: green;
 
@@ -17,8 +12,46 @@
         > img {
             width: 100%;
             position:relative;
-            bottom: 150px;
+            bottom: 280px;
             object-fit: scale-down;
+        }
+    }
+}
+
+.container {
+    width: 1080px;
+    margin: auto;
+    margin-bottom: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .card_container {
+        width: 100%;
+        
+        .card_container_header {
+            margin-top: 30px;
+            width: 100%;
+            height: 100px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            align-items: flex-start;
+
+            .title {
+                margin-left: 100px;
+                font-size: 30px;
+                font-weight: 900;
+                color: rgb(219, 33, 33);
+            }
+
+            .detail {
+                margin-left: 100px;
+                font-size: 20px;
+            }
         }
     }
 
@@ -29,6 +62,10 @@
         grid-template-columns: 1fr 1fr;
         row-gap: 30px;
         place-items: center;
+    }
+
+    .button {
+        margin-top: 10px;
     }
 }
 
