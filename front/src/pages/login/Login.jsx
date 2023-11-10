@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-//import axios from "axios";
+
 
 const Wrapper = styled.div`
   width: 100%;

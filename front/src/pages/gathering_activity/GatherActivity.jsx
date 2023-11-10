@@ -3,6 +3,7 @@ import styles from '../activity_home/ActivityHome.module.scss'
 import Header from "../../components/header/Header";
 import Avatar from '@mui/material/Avatar';
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import {
   Container,
   Stack,
@@ -49,6 +50,16 @@ const GatherActivity = () => {
             <Chip label="요리"></Chip>
             <Chip label="사진"></Chip>
           </Stack>
+          <Link to={"/activity/membercheck"} className={styles.link}>
+            <Button
+              type="submit"
+              variant="text"
+              color="primary"
+              style={{ marginTop: "20px", marginLeft: "0" }}
+            >
+              멤버알아보기
+            </Button>
+          </Link>
           <div style={{ margin: "60px" }}></div>
           <div className={styles.container_upper}>
             <StyledImage src="/images/cook.jpg" />
