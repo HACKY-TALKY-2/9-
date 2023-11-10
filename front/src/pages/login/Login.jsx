@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/header/Header";
 //import axios from "axios";
 
 const Wrapper = styled.div`
@@ -57,7 +58,9 @@ function Login() {
   const [passwordtext, setPasswordText] = useState("");
 
   return (
-    <Wrapper>
+    <div>
+      <Header/>
+      <Wrapper>
       <IdArea
         value={idtext}
         onChange={(e) => setIdText(e.target.value)}
@@ -73,6 +76,8 @@ function Login() {
         <SignUpButton>SignUp</SignUpButton>
       </ButtonContainer>
     </Wrapper>
+    </div>
+
   );
 }
 

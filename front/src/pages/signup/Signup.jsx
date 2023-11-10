@@ -9,6 +9,7 @@ import {
   Paper,
   Chip,
 } from "@mui/material";
+import Header from "../../components/header/Header";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -52,6 +53,8 @@ function Signup() {
   ];
 
   return (
+    <div>
+    <Header/>
     <Container maxWidth="sm">
       <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
         <Typography variant="h4" gutterBottom>
@@ -152,6 +155,8 @@ function Signup() {
         </form>
       </Paper>
     </Container>
+    </div>
+
   );
 }
 
