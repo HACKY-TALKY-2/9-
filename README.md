@@ -27,5 +27,9 @@
 - 최근 7번의 모임에서의 사람들의 참석률을 바그래프로 확인하기 
 
 # 사용한 기술스택
-- Frontend -> React, Tailwind
-- Backend -> Node, Express, Mysql
+## Frontend
+- React
+- Tailwind
+## Backend
+- Node
+- Express, Mysql
