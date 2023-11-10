@@ -1,0 +1,10 @@
+.container_card {
+  width: 90%;
+
+
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 30px;
+  place-items: center;
+}
