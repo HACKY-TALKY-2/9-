@@ -15,7 +15,7 @@ app.use(morgan("dev"));
 
 dotenv.config();
 let corsOptions = {
-  origin: "http://localhost:8000",
+  origin: "*",
   credentials: true,
 };
 app.use(cors(corsOptions));
