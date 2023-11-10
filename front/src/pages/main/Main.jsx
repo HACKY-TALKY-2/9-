@@ -3,8 +3,12 @@ import styles from './Main.module.scss';
 import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import Button from '../../components/ui/button/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div>
       <Header />
@@ -13,6 +17,9 @@ const Main = () => {
             <img src='/images/main.jpg' />
           </div>
         <div className={styles.container}>
+          <div className={styles.button}>
+          <Button text='생성하기+' onClick={()=>{navigate("/activity/create")}}/>
+          </div>
           <div className={styles.card_container}>
             <div className={styles.card_container_header}>
               <div className={styles.title}>소모임</div>
@@ -28,7 +35,7 @@ const Main = () => {
             </div>
           </div>
           <div className={styles.button}>
-          <Button text='더보기+' />
+          {/* <Button text='더보기+' /> */}
           </div>  
           <div className={styles.card_container}>
             <div className={styles.card_container_header}>
@@ -45,7 +52,6 @@ const Main = () => {
             </div>
           </div>
           <div className={styles.button}>
-          <Button text='더보기+' />
           </div>  
         </div>
         
